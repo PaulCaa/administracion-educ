@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="~/App_Resources/css/Colors.css" rel="stylesheet" />
+    <link href="~/App_Resources/css/Login.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="login-area">
+            <form action="Login" method="post">
+                <h1>Login</h1>
+                <input type="text" name="IdUsuario" placeholder="Ingrese usuario" />
+                <input type="password" name="Contrasena" placeholder="Ingrese contraseña" />
+                <button type="submit">Entrar</button>
+                @{
+                    if (!string.IsNullOrEmpty(ViewBag.error))
+                    {
+                        <div class="error-msg">@ViewBag.error</div>
+                    }
+                }
+            </form>
+        </div>
+        <img src="https://images.unsplash.com/photo-1591295167585-68c8fc11bb4d" alt="">
+    </div>
+</body>
+</html>

@@ -1,0 +1,558 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EscuelaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Catedras">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Materia" Type="int" />
+          <Property Name="Turno" Type="char" MaxLength="1" />
+          <Property Name="Dia" Type="varchar" MaxLength="10" />
+          <Property Name="Horario" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Cursadas">
+          <Key>
+            <PropertyRef Name="Catedra" />
+            <PropertyRef Name="Alumno" />
+          </Key>
+          <Property Name="Catedra" Type="int" Nullable="false" />
+          <Property Name="Alumno" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="date" />
+        </EntityType>
+        <EntityType Name="Estudiantes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="50" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="Numero_Documento" Type="int" />
+          <Property Name="Legajo" Type="varchar" MaxLength="20" />
+          <Property Name="Saldo" Type="float" />
+        </EntityType>
+        <EntityType Name="Logins">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Contrasena" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="Apellido" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="IdRole" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Maestros">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="50" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="Numero_Documento" Type="int" />
+        </EntityType>
+        <EntityType Name="Maestros_Catedras">
+          <Key>
+            <PropertyRef Name="Maestro" />
+            <PropertyRef Name="Catedra" />
+          </Key>
+          <Property Name="Maestro" Type="int" Nullable="false" />
+          <Property Name="Catedra" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Materias">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'EscuelaDB.dbo.Cursadas_Alumno' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Cursadas_Alumno">
+          <Key>
+            <PropertyRef Name="IdCatedra" />
+          </Key>
+          <Property Name="Legajo" Type="varchar" MaxLength="20" />
+          <Property Name="Materia" Type="varchar" MaxLength="100" />
+          <Property Name="IdCatedra" Type="int" Nullable="false" />
+          <Property Name="Dia" Type="varchar" MaxLength="10" />
+          <Property Name="Horario" Type="varchar" MaxLength="50" />
+          <Property Name="Turno" Type="char" MaxLength="1" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'EscuelaDB.dbo.Listado_Catedras' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Listado_Catedras">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+          <Property Name="Dia" Type="varchar" MaxLength="10" />
+          <Property Name="Horario" Type="varchar" MaxLength="50" />
+          <Property Name="Turno" Type="char" MaxLength="1" />
+          <Property Name="Maestro" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="Listado_Cursos">
+          <Property Name="IdCurso" Type="int" />
+          <Property Name="NombreCurso" Type="varchar" MaxLength="100" />
+          <Property Name="Alumno" Type="varchar" MaxLength="102" />
+          <Property Name="Legajo" Type="varchar" MaxLength="20" />
+          <Property Name="Dia" Type="varchar" MaxLength="10" />
+          <Property Name="Turno" Type="char" MaxLength="1" />
+          <Property Name="Maestro" Type="varchar" MaxLength="102" />
+        </EntityType>-->
+        <Association Name="FK_Alumno_Id">
+          <End Role="Estudiantes" Type="Self.Estudiantes" Multiplicity="1" />
+          <End Role="Cursadas" Type="Self.Cursadas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiantes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cursadas">
+              <PropertyRef Name="Alumno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Catedra_Materia">
+          <End Role="Materias" Type="Self.Materias" Multiplicity="0..1" />
+          <End Role="Catedras" Type="Self.Catedras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Catedras">
+              <PropertyRef Name="Materia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cursada_Catedra">
+          <End Role="Catedras" Type="Self.Catedras" Multiplicity="1" />
+          <End Role="Cursadas" Type="Self.Cursadas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Catedras">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cursadas">
+              <PropertyRef Name="Catedra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Login_Role">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Logins" Type="Self.Logins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Logins">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Maestro_Catedra">
+          <End Role="Catedras" Type="Self.Catedras" Multiplicity="1" />
+          <End Role="Maestros_Catedras" Type="Self.Maestros_Catedras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Catedras">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Maestros_Catedras">
+              <PropertyRef Name="Catedra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Maestro_Id">
+          <End Role="Maestros" Type="Self.Maestros" Multiplicity="1" />
+          <End Role="Maestros_Catedras" Type="Self.Maestros_Catedras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Maestros">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Maestros_Catedras">
+              <PropertyRef Name="Maestro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EscuelaDBModelStoreContainer">
+          <EntitySet Name="Catedras" EntityType="Self.Catedras" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cursadas" EntityType="Self.Cursadas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estudiantes" EntityType="Self.Estudiantes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Logins" EntityType="Self.Logins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Maestros" EntityType="Self.Maestros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Maestros_Catedras" EntityType="Self.Maestros_Catedras" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Materias" EntityType="Self.Materias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cursadas_Alumno" EntityType="Self.Cursadas_Alumno" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Cursadas_Alumno].[Legajo] AS [Legajo], 
+    [Cursadas_Alumno].[Materia] AS [Materia], 
+    [Cursadas_Alumno].[IdCatedra] AS [IdCatedra], 
+    [Cursadas_Alumno].[Dia] AS [Dia], 
+    [Cursadas_Alumno].[Horario] AS [Horario], 
+    [Cursadas_Alumno].[Turno] AS [Turno]
+    FROM [dbo].[Cursadas_Alumno] AS [Cursadas_Alumno]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Listado_Catedras" EntityType="Self.Listado_Catedras" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Listado_Catedras].[Id] AS [Id], 
+    [Listado_Catedras].[Nombre] AS [Nombre], 
+    [Listado_Catedras].[Dia] AS [Dia], 
+    [Listado_Catedras].[Horario] AS [Horario], 
+    [Listado_Catedras].[Turno] AS [Turno], 
+    [Listado_Catedras].[Maestro] AS [Maestro]
+    FROM [dbo].[Listado_Catedras] AS [Listado_Catedras]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Alumno_Id" Association="Self.FK_Alumno_Id">
+            <End Role="Estudiantes" EntitySet="Estudiantes" />
+            <End Role="Cursadas" EntitySet="Cursadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Catedra_Materia" Association="Self.FK_Catedra_Materia">
+            <End Role="Materias" EntitySet="Materias" />
+            <End Role="Catedras" EntitySet="Catedras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cursada_Catedra" Association="Self.FK_Cursada_Catedra">
+            <End Role="Catedras" EntitySet="Catedras" />
+            <End Role="Cursadas" EntitySet="Cursadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Login_Role" Association="Self.FK_Login_Role">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Logins" EntitySet="Logins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Maestro_Catedra" Association="Self.FK_Maestro_Catedra">
+            <End Role="Catedras" EntitySet="Catedras" />
+            <End Role="Maestros_Catedras" EntitySet="Maestros_Catedras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Maestro_Id" Association="Self.FK_Maestro_Id">
+            <End Role="Maestros" EntitySet="Maestros" />
+            <End Role="Maestros_Catedras" EntitySet="Maestros_Catedras" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EscuelaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Catedras">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Materia" Type="Int32" />
+          <Property Name="Turno" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Dia" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Horario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Materias" Relationship="Self.FK_Catedra_Materia" FromRole="Catedras" ToRole="Materias" />
+          <NavigationProperty Name="Cursadas" Relationship="Self.FK_Cursada_Catedra" FromRole="Catedras" ToRole="Cursadas" />
+          <NavigationProperty Name="Maestros" Relationship="Self.Maestros_Catedras" FromRole="Catedras" ToRole="Maestros" />
+        </EntityType>
+        <EntityType Name="Cursadas">
+          <Key>
+            <PropertyRef Name="Catedra" />
+            <PropertyRef Name="Alumno" />
+          </Key>
+          <Property Name="Catedra" Type="Int32" Nullable="false" />
+          <Property Name="Alumno" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Catedras" Relationship="Self.FK_Cursada_Catedra" FromRole="Cursadas" ToRole="Catedras" />
+          <NavigationProperty Name="Estudiantes" Relationship="Self.FK_Alumno_Id" FromRole="Cursadas" ToRole="Estudiantes" />
+        </EntityType>
+        <EntityType Name="Estudiantes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NumeroDocumento" Type="Int32" />
+          <Property Name="Legajo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Saldo" Type="Double" />
+          <NavigationProperty Name="Cursadas" Relationship="Self.FK_Alumno_Id" FromRole="Estudiantes" ToRole="Cursadas" />
+        </EntityType>
+        <EntityType Name="Logins">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Contrasena" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IdRole" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK_Login_Role" FromRole="Logins" ToRole="Roles" />
+        </EntityType>
+        <EntityType Name="Maestros">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NumeroDocumento" Type="Int32" />
+          <NavigationProperty Name="Catedras" Relationship="Self.Maestros_Catedras" FromRole="Maestros" ToRole="Catedras" />
+        </EntityType>
+        <EntityType Name="Materias">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Catedras" Relationship="Self.FK_Catedra_Materia" FromRole="Materias" ToRole="Catedras" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Logins" Relationship="Self.FK_Login_Role" FromRole="Roles" ToRole="Logins" />
+        </EntityType>
+        <EntityType Name="CursadasAlumno">
+          <Key>
+            <PropertyRef Name="IdCatedra" />
+          </Key>
+          <Property Name="Legajo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Materia" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IdCatedra" Type="Int32" Nullable="false" />
+          <Property Name="Dia" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Horario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Turno" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ListadoCatedras">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Dia" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Horario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Turno" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Maestro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Catedra_Materia">
+          <End Role="Materias" Type="Self.Materias" Multiplicity="0..1" />
+          <End Role="Catedras" Type="Self.Catedras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Catedras">
+              <PropertyRef Name="Materia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cursada_Catedra">
+          <End Role="Catedras" Type="Self.Catedras" Multiplicity="1" />
+          <End Role="Cursadas" Type="Self.Cursadas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Catedras">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cursadas">
+              <PropertyRef Name="Catedra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Alumno_Id">
+          <End Role="Estudiantes" Type="Self.Estudiantes" Multiplicity="1" />
+          <End Role="Cursadas" Type="Self.Cursadas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiantes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cursadas">
+              <PropertyRef Name="Alumno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Login_Role">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Logins" Type="Self.Logins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Logins">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Maestros_Catedras">
+          <End Role="Catedras" Type="Self.Catedras" Multiplicity="*" />
+          <End Role="Maestros" Type="Self.Maestros" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="EscuelaDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Catedras" EntityType="Self.Catedras" />
+          <EntitySet Name="Cursadas" EntityType="Self.Cursadas" />
+          <EntitySet Name="Estudiantes" EntityType="Self.Estudiantes" />
+          <EntitySet Name="Logins" EntityType="Self.Logins" />
+          <EntitySet Name="Maestros" EntityType="Self.Maestros" />
+          <EntitySet Name="Materias" EntityType="Self.Materias" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="Cursadas_Alumno" EntityType="EscuelaDBModel.CursadasAlumno" />
+          <EntitySet Name="Listado_Catedras" EntityType="EscuelaDBModel.ListadoCatedras" />
+          <AssociationSet Name="FK_Catedra_Materia" Association="Self.FK_Catedra_Materia">
+            <End Role="Materias" EntitySet="Materias" />
+            <End Role="Catedras" EntitySet="Catedras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cursada_Catedra" Association="Self.FK_Cursada_Catedra">
+            <End Role="Catedras" EntitySet="Catedras" />
+            <End Role="Cursadas" EntitySet="Cursadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Alumno_Id" Association="Self.FK_Alumno_Id">
+            <End Role="Estudiantes" EntitySet="Estudiantes" />
+            <End Role="Cursadas" EntitySet="Cursadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Login_Role" Association="Self.FK_Login_Role">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Logins" EntitySet="Logins" />
+          </AssociationSet>
+          <AssociationSet Name="Maestros_Catedras" Association="Self.Maestros_Catedras">
+            <End Role="Catedras" EntitySet="Catedras" />
+            <End Role="Maestros" EntitySet="Maestros" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EscuelaDBModelStoreContainer" CdmEntityContainer="EscuelaDBEntities">
+          <EntitySetMapping Name="Catedras">
+            <EntityTypeMapping TypeName="EscuelaDBModel.Catedras">
+              <MappingFragment StoreEntitySet="Catedras">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Materia" ColumnName="Materia" />
+                <ScalarProperty Name="Turno" ColumnName="Turno" />
+                <ScalarProperty Name="Dia" ColumnName="Dia" />
+                <ScalarProperty Name="Horario" ColumnName="Horario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cursadas">
+            <EntityTypeMapping TypeName="EscuelaDBModel.Cursadas">
+              <MappingFragment StoreEntitySet="Cursadas">
+                <ScalarProperty Name="Catedra" ColumnName="Catedra" />
+                <ScalarProperty Name="Alumno" ColumnName="Alumno" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estudiantes">
+            <EntityTypeMapping TypeName="EscuelaDBModel.Estudiantes">
+              <MappingFragment StoreEntitySet="Estudiantes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="NumeroDocumento" ColumnName="Numero_Documento" />
+                <ScalarProperty Name="Legajo" ColumnName="Legajo" />
+                <ScalarProperty Name="Saldo" ColumnName="Saldo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logins">
+            <EntityTypeMapping TypeName="EscuelaDBModel.Logins">
+              <MappingFragment StoreEntitySet="Logins">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Maestros">
+            <EntityTypeMapping TypeName="EscuelaDBModel.Maestros">
+              <MappingFragment StoreEntitySet="Maestros">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="NumeroDocumento" ColumnName="Numero_Documento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Materias">
+            <EntityTypeMapping TypeName="EscuelaDBModel.Materias">
+              <MappingFragment StoreEntitySet="Materias">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="EscuelaDBModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cursadas_Alumno">
+            <EntityTypeMapping TypeName="EscuelaDBModel.CursadasAlumno">
+              <MappingFragment StoreEntitySet="Cursadas_Alumno">
+                <ScalarProperty Name="Legajo" ColumnName="Legajo" />
+                <ScalarProperty Name="Materia" ColumnName="Materia" />
+                <ScalarProperty Name="IdCatedra" ColumnName="IdCatedra" />
+                <ScalarProperty Name="Dia" ColumnName="Dia" />
+                <ScalarProperty Name="Horario" ColumnName="Horario" />
+                <ScalarProperty Name="Turno" ColumnName="Turno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Listado_Catedras">
+            <EntityTypeMapping TypeName="EscuelaDBModel.ListadoCatedras">
+              <MappingFragment StoreEntitySet="Listado_Catedras">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Dia" ColumnName="Dia" />
+                <ScalarProperty Name="Horario" ColumnName="Horario" />
+                <ScalarProperty Name="Turno" ColumnName="Turno" />
+                <ScalarProperty Name="Maestro" ColumnName="Maestro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Maestros_Catedras" TypeName="EscuelaDBModel.Maestros_Catedras" StoreEntitySet="Maestros_Catedras">
+            <EndProperty Name="Catedras">
+              <ScalarProperty Name="Id" ColumnName="Catedra" />
+            </EndProperty>
+            <EndProperty Name="Maestros">
+              <ScalarProperty Name="Id" ColumnName="Maestro" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
