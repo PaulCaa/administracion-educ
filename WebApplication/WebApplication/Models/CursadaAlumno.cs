@@ -12,15 +12,13 @@ namespace WebApplication.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Logins
+    public partial class CursadaAlumno
     {
-        public string IdUsuario { get; set; }
-        public string Contrasena { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string Email { get; set; }
-        public int IdRole { get; set; }
-    
-        public virtual Roles Roles { get; set; }
+        public string Legajo { get; set; }
+        public string Materia { get; set; }
+        public int IdCatedra { get; set; }
+        public string Dia { get; set; }
+        public string Horario { get; set; }
+        public string Turno { get; set; }
     }
 }

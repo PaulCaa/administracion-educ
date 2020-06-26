@@ -245,7 +245,7 @@ advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene defin
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EscuelaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Catedras">
+        <EntityType Name="Catedra">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -258,7 +258,7 @@ advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene defin
           <NavigationProperty Name="Cursadas" Relationship="Self.FK_Cursada_Catedra" FromRole="Catedras" ToRole="Cursadas" />
           <NavigationProperty Name="Maestros" Relationship="Self.Maestros_Catedras" FromRole="Catedras" ToRole="Maestros" />
         </EntityType>
-        <EntityType Name="Cursadas">
+        <EntityType Name="Cursada">
           <Key>
             <PropertyRef Name="Catedra" />
             <PropertyRef Name="Alumno" />
@@ -269,7 +269,7 @@ advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene defin
           <NavigationProperty Name="Catedras" Relationship="Self.FK_Cursada_Catedra" FromRole="Cursadas" ToRole="Catedras" />
           <NavigationProperty Name="Estudiantes" Relationship="Self.FK_Alumno_Id" FromRole="Cursadas" ToRole="Estudiantes" />
         </EntityType>
-        <EntityType Name="Estudiantes">
+        <EntityType Name="Estudiante">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -281,7 +281,7 @@ advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene defin
           <Property Name="Saldo" Type="Double" />
           <NavigationProperty Name="Cursadas" Relationship="Self.FK_Alumno_Id" FromRole="Estudiantes" ToRole="Cursadas" />
         </EntityType>
-        <EntityType Name="Logins">
+        <EntityType Name="UsuarioLogin">
           <Key>
             <PropertyRef Name="IdUsuario" />
           </Key>
@@ -293,7 +293,7 @@ advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene defin
           <Property Name="IdRole" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Roles" Relationship="Self.FK_Login_Role" FromRole="Logins" ToRole="Roles" />
         </EntityType>
-        <EntityType Name="Maestros">
+        <EntityType Name="Maestro">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -303,7 +303,7 @@ advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene defin
           <Property Name="NumeroDocumento" Type="Int32" />
           <NavigationProperty Name="Catedras" Relationship="Self.Maestros_Catedras" FromRole="Maestros" ToRole="Catedras" />
         </EntityType>
-        <EntityType Name="Materias">
+        <EntityType Name="Materia">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -311,7 +311,7 @@ advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene defin
           <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Catedras" Relationship="Self.FK_Catedra_Materia" FromRole="Materias" ToRole="Catedras" />
         </EntityType>
-        <EntityType Name="Roles">
+        <EntityType Name="Rol">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -319,7 +319,7 @@ advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene defin
           <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Logins" Relationship="Self.FK_Login_Role" FromRole="Roles" ToRole="Logins" />
         </EntityType>
-        <EntityType Name="CursadasAlumno">
+        <EntityType Name="CursadaAlumno">
           <Key>
             <PropertyRef Name="IdCatedra" />
           </Key>
@@ -330,7 +330,7 @@ advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene defin
           <Property Name="Horario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Turno" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
-        <EntityType Name="ListadoCatedras">
+        <EntityType Name="ListadoCatedra">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -342,8 +342,8 @@ advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene defin
           <Property Name="Maestro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Catedra_Materia">
-          <End Role="Materias" Type="Self.Materias" Multiplicity="0..1" />
-          <End Role="Catedras" Type="Self.Catedras" Multiplicity="*" />
+          <End Role="Materias" Type="EscuelaDBModel.Materia" Multiplicity="0..1" />
+          <End Role="Catedras" Type="EscuelaDBModel.Catedra" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Materias">
               <PropertyRef Name="Id" />
@@ -354,8 +354,8 @@ advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene defin
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Cursada_Catedra">
-          <End Role="Catedras" Type="Self.Catedras" Multiplicity="1" />
-          <End Role="Cursadas" Type="Self.Cursadas" Multiplicity="*" />
+          <End Role="Catedras" Type="EscuelaDBModel.Catedra" Multiplicity="1" />
+          <End Role="Cursadas" Type="EscuelaDBModel.Cursada" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Catedras">
               <PropertyRef Name="Id" />
@@ -366,8 +366,8 @@ advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene defin
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Alumno_Id">
-          <End Role="Estudiantes" Type="Self.Estudiantes" Multiplicity="1" />
-          <End Role="Cursadas" Type="Self.Cursadas" Multiplicity="*" />
+          <End Role="Estudiantes" Type="EscuelaDBModel.Estudiante" Multiplicity="1" />
+          <End Role="Cursadas" Type="EscuelaDBModel.Cursada" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Estudiantes">
               <PropertyRef Name="Id" />
@@ -378,8 +378,8 @@ advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene defin
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Login_Role">
-          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
-          <End Role="Logins" Type="Self.Logins" Multiplicity="*" />
+          <End Role="Roles" Type="EscuelaDBModel.Rol" Multiplicity="1" />
+          <End Role="Logins" Type="EscuelaDBModel.UsuarioLogin" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Roles">
               <PropertyRef Name="Id" />
@@ -390,19 +390,19 @@ advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene defin
           </ReferentialConstraint>
         </Association>
         <Association Name="Maestros_Catedras">
-          <End Role="Catedras" Type="Self.Catedras" Multiplicity="*" />
-          <End Role="Maestros" Type="Self.Maestros" Multiplicity="*" />
+          <End Role="Catedras" Type="EscuelaDBModel.Catedra" Multiplicity="*" />
+          <End Role="Maestros" Type="EscuelaDBModel.Maestro" Multiplicity="*" />
         </Association>
         <EntityContainer Name="EscuelaDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Catedras" EntityType="Self.Catedras" />
-          <EntitySet Name="Cursadas" EntityType="Self.Cursadas" />
-          <EntitySet Name="Estudiantes" EntityType="Self.Estudiantes" />
-          <EntitySet Name="Logins" EntityType="Self.Logins" />
-          <EntitySet Name="Maestros" EntityType="Self.Maestros" />
-          <EntitySet Name="Materias" EntityType="Self.Materias" />
-          <EntitySet Name="Roles" EntityType="Self.Roles" />
-          <EntitySet Name="Cursadas_Alumno" EntityType="EscuelaDBModel.CursadasAlumno" />
-          <EntitySet Name="Listado_Catedras" EntityType="EscuelaDBModel.ListadoCatedras" />
+          <EntitySet Name="Catedras" EntityType="EscuelaDBModel.Catedra" />
+          <EntitySet Name="Cursadas" EntityType="EscuelaDBModel.Cursada" />
+          <EntitySet Name="Estudiantes" EntityType="EscuelaDBModel.Estudiante" />
+          <EntitySet Name="Logins" EntityType="EscuelaDBModel.UsuarioLogin" />
+          <EntitySet Name="Maestros" EntityType="EscuelaDBModel.Maestro" />
+          <EntitySet Name="Materias" EntityType="EscuelaDBModel.Materia" />
+          <EntitySet Name="Roles" EntityType="EscuelaDBModel.Rol" />
+          <EntitySet Name="Cursadas_Alumno" EntityType="EscuelaDBModel.CursadaAlumno" />
+          <EntitySet Name="Listado_Catedras" EntityType="EscuelaDBModel.ListadoCatedra" />
           <AssociationSet Name="FK_Catedra_Materia" Association="Self.FK_Catedra_Materia">
             <End Role="Materias" EntitySet="Materias" />
             <End Role="Catedras" EntitySet="Catedras" />
@@ -431,7 +431,7 @@ advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene defin
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="EscuelaDBModelStoreContainer" CdmEntityContainer="EscuelaDBEntities">
           <EntitySetMapping Name="Catedras">
-            <EntityTypeMapping TypeName="EscuelaDBModel.Catedras">
+            <EntityTypeMapping TypeName="EscuelaDBModel.Catedra">
               <MappingFragment StoreEntitySet="Catedras">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Materia" ColumnName="Materia" />
@@ -442,7 +442,7 @@ advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene defin
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Cursadas">
-            <EntityTypeMapping TypeName="EscuelaDBModel.Cursadas">
+            <EntityTypeMapping TypeName="EscuelaDBModel.Cursada">
               <MappingFragment StoreEntitySet="Cursadas">
                 <ScalarProperty Name="Catedra" ColumnName="Catedra" />
                 <ScalarProperty Name="Alumno" ColumnName="Alumno" />
@@ -451,7 +451,7 @@ advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene defin
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Estudiantes">
-            <EntityTypeMapping TypeName="EscuelaDBModel.Estudiantes">
+            <EntityTypeMapping TypeName="EscuelaDBModel.Estudiante">
               <MappingFragment StoreEntitySet="Estudiantes">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Apellido" ColumnName="Apellido" />
@@ -463,7 +463,7 @@ advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene defin
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Logins">
-            <EntityTypeMapping TypeName="EscuelaDBModel.Logins">
+            <EntityTypeMapping TypeName="EscuelaDBModel.UsuarioLogin">
               <MappingFragment StoreEntitySet="Logins">
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
                 <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
@@ -475,7 +475,7 @@ advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene defin
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Maestros">
-            <EntityTypeMapping TypeName="EscuelaDBModel.Maestros">
+            <EntityTypeMapping TypeName="EscuelaDBModel.Maestro">
               <MappingFragment StoreEntitySet="Maestros">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Apellido" ColumnName="Apellido" />
@@ -485,7 +485,7 @@ advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene defin
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Materias">
-            <EntityTypeMapping TypeName="EscuelaDBModel.Materias">
+            <EntityTypeMapping TypeName="EscuelaDBModel.Materia">
               <MappingFragment StoreEntitySet="Materias">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -493,7 +493,7 @@ advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene defin
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="EscuelaDBModel.Roles">
+            <EntityTypeMapping TypeName="EscuelaDBModel.Rol">
               <MappingFragment StoreEntitySet="Roles">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -501,7 +501,7 @@ advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene defin
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Cursadas_Alumno">
-            <EntityTypeMapping TypeName="EscuelaDBModel.CursadasAlumno">
+            <EntityTypeMapping TypeName="EscuelaDBModel.CursadaAlumno">
               <MappingFragment StoreEntitySet="Cursadas_Alumno">
                 <ScalarProperty Name="Legajo" ColumnName="Legajo" />
                 <ScalarProperty Name="Materia" ColumnName="Materia" />
@@ -513,7 +513,7 @@ advertencia 6013: La tabla o vista 'EscuelaDB.dbo.Listado_Cursos' no tiene defin
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Listado_Catedras">
-            <EntityTypeMapping TypeName="EscuelaDBModel.ListadoCatedras">
+            <EntityTypeMapping TypeName="EscuelaDBModel.ListadoCatedra">
               <MappingFragment StoreEntitySet="Listado_Catedras">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />

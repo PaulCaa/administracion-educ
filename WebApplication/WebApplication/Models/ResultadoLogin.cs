@@ -9,7 +9,7 @@ namespace WebApplication.Models
     {
         public Boolean Resultado { set; get; }
         public string Mensaje { set; get; }
-        public Logins Login { set; get; }
+        public UsuarioLogin Login { set; get; }
 
         public ResultadoLogin()
         {

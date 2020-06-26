@@ -12,25 +12,22 @@ namespace WebApplication.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Catedras
+    public partial class Estudiante
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Catedras()
+        public Estudiante()
         {
-            this.Cursadas = new HashSet<Cursadas>();
-            this.Maestros = new HashSet<Maestros>();
+            this.Cursadas = new HashSet<Cursada>();
         }
     
         public int Id { get; set; }
-        public Nullable<int> Materia { get; set; }
-        public string Turno { get; set; }
-        public string Dia { get; set; }
-        public string Horario { get; set; }
+        public string Apellido { get; set; }
+        public string Nombre { get; set; }
+        public Nullable<int> NumeroDocumento { get; set; }
+        public string Legajo { get; set; }
+        public Nullable<double> Saldo { get; set; }
     
-        public virtual Materias Materias { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cursadas> Cursadas { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Maestros> Maestros { get; set; }
+        public virtual ICollection<Cursada> Cursadas { get; set; }
     }
 }

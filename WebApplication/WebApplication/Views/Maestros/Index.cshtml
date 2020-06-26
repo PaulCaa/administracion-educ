@@ -1,0 +1,22 @@
+﻿<div class="content">
+
+    <div class="aside-panel">
+        <h2>@ViewBag.SectionName</h2>
+        @Html.Partial("~/Views/Maestros/Partial/_Formulario.cshtml")
+    </div>
+
+    <div class="center-panel">
+        @model WebApplication.Models.MaestrosResponse
+        @if (!Model.Error)
+        {
+            @Html.Partial("~/Views/Maestros/Partial/_TablaResultados.cshtml", Model.Data)
+        }
+        else
+        {
+            <div class="error-msg">@Model.Message</div>
+        }
+
+
+
+    </div>
+</div>

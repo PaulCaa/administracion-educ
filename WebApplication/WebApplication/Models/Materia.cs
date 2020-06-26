@@ -12,18 +12,18 @@ namespace WebApplication.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Materias
+    public partial class Materia
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Materias()
+        public Materia()
         {
-            this.Catedras = new HashSet<Catedras>();
+            this.Catedras = new HashSet<Catedra>();
         }
     
         public int Id { get; set; }
         public string Nombre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Catedras> Catedras { get; set; }
+        public virtual ICollection<Catedra> Catedras { get; set; }
     }
 }

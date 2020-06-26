@@ -98,6 +98,7 @@
   <ItemGroup>
     <Content Include="App_Resources\css\Colors.css" />
     <Content Include="App_Resources\css\Login.css" />
+    <Content Include="App_Resources\css\MainStyles.css" />
     <Content Include="Global.asax" />
     <Content Include="Models\DataBase.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -114,18 +115,21 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\IndexController.cs" />
+    <Compile Include="Controllers\MaestrosController.cs" />
+    <Compile Include="Exceptions\DocumentDuplicatedException.cs" />
+    <Compile Include="Exceptions\EmptyModelParameterException.cs" />
     <Compile Include="Exceptions\ValidacionLoginException.cs" />
     <Compile Include="Exceptions\WebAppException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Catedras.cs">
+    <Compile Include="Models\Catedra.cs">
       <DependentUpon>DataBase.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Cursadas.cs">
+    <Compile Include="Models\Cursada.cs">
       <DependentUpon>DataBase.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CursadasAlumno.cs">
+    <Compile Include="Models\CursadaAlumno.cs">
       <DependentUpon>DataBase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataBase.Context.cs">
@@ -143,27 +147,29 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataBase.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Estudiantes.cs">
+    <Compile Include="Models\Estudiante.cs">
       <DependentUpon>DataBase.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ListadoCatedras.cs">
+    <Compile Include="Models\ListadoCatedra.cs">
       <DependentUpon>DataBase.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Logins.cs">
+    <Compile Include="Models\Maestro.cs">
       <DependentUpon>DataBase.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Maestros.cs">
+    <Compile Include="Models\Materia.cs">
       <DependentUpon>DataBase.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Materias.cs">
-      <DependentUpon>DataBase.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\MaestrosResponse.cs" />
     <Compile Include="Models\ResultadoLogin.cs" />
-    <Compile Include="Models\Roles.cs">
+    <Compile Include="Models\Rol.cs">
+      <DependentUpon>DataBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UsuarioLogin.cs">
       <DependentUpon>DataBase.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\LoginService.cs" />
+    <Compile Include="Service\MaestrosService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -178,6 +184,11 @@
     <Content Include="Views\Index\Login.cshtml" />
     <Content Include="Views\Index\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Navbar.cshtml" />
+    <Content Include="Views\Maestros\Index.cshtml" />
+    <Content Include="Views\Maestros\Partial\_Formulario.cshtml" />
+    <Content Include="Views\Maestros\Partial\_TablaResultados.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

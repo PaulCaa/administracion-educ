@@ -5,15 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="10c3037db41244d3bfe64d3a49544076" Name="Diagram1">
-        <EntityTypeShape EntityType="EscuelaDBModel.Catedras" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="EscuelaDBModel.Cursadas" Width="1.5" PointX="5.25" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="EscuelaDBModel.Estudiantes" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="EscuelaDBModel.Logins" Width="1.5" PointX="10" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="EscuelaDBModel.Maestros" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="EscuelaDBModel.Materias" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="EscuelaDBModel.Roles" Width="1.5" PointX="7.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="EscuelaDBModel.CursadasAlumno" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EscuelaDBModel.ListadoCatedras" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EscuelaDBModel.Catedra" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EscuelaDBModel.Cursada" Width="1.5" PointX="5.25" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EscuelaDBModel.Estudiante" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EscuelaDBModel.UsuarioLogin" Width="1.5" PointX="10" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="EscuelaDBModel.Maestro" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EscuelaDBModel.Materia" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EscuelaDBModel.Rol" Width="1.5" PointX="7.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EscuelaDBModel.CursadaAlumno" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EscuelaDBModel.ListadoCatedra" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
         <AssociationConnector Association="EscuelaDBModel.FK_Catedra_Materia" ManuallyRouted="false" />
         <AssociationConnector Association="EscuelaDBModel.FK_Cursada_Catedra" ManuallyRouted="false" />
         <AssociationConnector Association="EscuelaDBModel.FK_Alumno_Id" ManuallyRouted="false" />

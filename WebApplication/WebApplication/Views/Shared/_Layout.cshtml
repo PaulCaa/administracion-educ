@@ -1,17 +1,26 @@
 ﻿@{
-    Layout = null;
+    ViewBag.MainTitle = "Escuela";
 }
-
 <!DOCTYPE html>
-
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.MainTitle</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="~/App_Resources/css/Colors.css" rel="stylesheet" />
+    <link href="~/App_Resources/css/MainStyles.css" rel="stylesheet" />
 </head>
 <body>
-    <div>
-    
+    @Html.Partial("~/Views/Shared/_Navbar.cshtml")
+
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    <div class="footer">
+        <p>Developed by <a href="http://pablocaamano.com.ar" target="_BLANK">Pablo Caamaño</a></p>
     </div>
 </body>
 </html>

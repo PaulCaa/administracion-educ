@@ -12,13 +12,18 @@ namespace WebApplication.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ListadoCatedras
+    public partial class Rol
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Rol()
+        {
+            this.Logins = new HashSet<UsuarioLogin>();
+        }
+    
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public string Dia { get; set; }
-        public string Horario { get; set; }
-        public string Turno { get; set; }
-        public string Maestro { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UsuarioLogin> Logins { get; set; }
     }
 }

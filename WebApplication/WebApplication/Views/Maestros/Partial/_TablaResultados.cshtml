@@ -1,0 +1,31 @@
+﻿<div class="table-wrapper">
+    <table>
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>APELLIDO</td>
+                <td>NOMBRE</td>
+                <td>DNI</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @model List<WebApplication.Models.Maestro>
+            @{
+                foreach (var m in Model)
+                {
+                    <tr>
+                        <td>@m.Id</td>
+                        <td>@m.Apellido</td>
+                        <td>@m.Nombre</td>
+                        <td>@m.NumeroDocumento</td>
+                        <td>
+                            @Html.ActionLink("modificar", "Modify", new { id = m.Id }, new { htmlAttributes = new { @class = "fas fas-edit" } })
+                            @Html.ActionLink("borrar", "Borrar", new { id = m.Id }, new { htmlAttributes = new { @class = "fas fas-trash-alt" } })
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

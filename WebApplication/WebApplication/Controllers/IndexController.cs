@@ -21,7 +21,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(Logins login)
+        public ActionResult Login(UsuarioLogin login)
         {
             loginService = new LoginService();
             try
@@ -57,11 +57,12 @@ namespace WebApplication.Controllers
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return RedirectToAction("login");
             } 
         }
 
-        private void NuevaSesion(Logins usr)
+        private void NuevaSesion(UsuarioLogin usr)
         {
             Session["login"] = "true";
             if (!string.IsNullOrEmpty(usr.IdUsuario))

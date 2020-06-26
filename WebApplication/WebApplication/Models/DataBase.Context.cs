@@ -25,14 +25,14 @@ namespace WebApplication.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Catedras> Catedras { get; set; }
-        public virtual DbSet<Cursadas> Cursadas { get; set; }
-        public virtual DbSet<Estudiantes> Estudiantes { get; set; }
-        public virtual DbSet<Logins> Logins { get; set; }
-        public virtual DbSet<Maestros> Maestros { get; set; }
-        public virtual DbSet<Materias> Materias { get; set; }
-        public virtual DbSet<Roles> Roles { get; set; }
-        public virtual DbSet<CursadasAlumno> Cursadas_Alumno { get; set; }
-        public virtual DbSet<ListadoCatedras> Listado_Catedras { get; set; }
+        public virtual DbSet<Catedra> Catedras { get; set; }
+        public virtual DbSet<Cursada> Cursadas { get; set; }
+        public virtual DbSet<Estudiante> Estudiantes { get; set; }
+        public virtual DbSet<UsuarioLogin> Logins { get; set; }
+        public virtual DbSet<Maestro> Maestros { get; set; }
+        public virtual DbSet<Materia> Materias { get; set; }
+        public virtual DbSet<Rol> Roles { get; set; }
+        public virtual DbSet<CursadaAlumno> Cursadas_Alumno { get; set; }
+        public virtual DbSet<ListadoCatedra> Listado_Catedras { get; set; }
     }
 }

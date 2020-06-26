@@ -12,18 +12,20 @@ namespace WebApplication.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Roles
+    public partial class Maestro
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Roles()
+        public Maestro()
         {
-            this.Logins = new HashSet<Logins>();
+            this.Catedras = new HashSet<Catedra>();
         }
     
         public int Id { get; set; }
+        public string Apellido { get; set; }
         public string Nombre { get; set; }
+        public Nullable<int> NumeroDocumento { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Logins> Logins { get; set; }
+        public virtual ICollection<Catedra> Catedras { get; set; }
     }
 }

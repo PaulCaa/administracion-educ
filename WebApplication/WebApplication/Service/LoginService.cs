@@ -27,7 +27,7 @@ namespace WebApplication.Service
             string hash = Encriptar(ctr);
             using (EscuelaDBEntities db = new EscuelaDBEntities())
             {
-                Logins reg = db.Logins.Find(usr);
+                UsuarioLogin reg = db.Logins.Find(usr);
                 if (reg == null)
                     throw new ValidacionLoginException();
                 if(reg.Contrasena == hash)
