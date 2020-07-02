@@ -6,7 +6,7 @@
                 <td>APELLIDO</td>
                 <td>NOMBRE</td>
                 <td>DNI</td>
-                <td></td>
+                @*<td></td>*@
             </tr>
         </thead>
         <tbody>
@@ -19,10 +19,10 @@
                         <td>@m.Apellido</td>
                         <td>@m.Nombre</td>
                         <td>@m.NumeroDocumento</td>
-                        <td>
+                        @*<td>
                             @Html.ActionLink("modificar", "Modify", new { id = m.Id }, new { htmlAttributes = new { @class = "fas fas-edit" } })
                             @Html.ActionLink("borrar", "Borrar", new { id = m.Id }, new { htmlAttributes = new { @class = "fas fas-trash-alt" } })
-                        </td>
+                        </td>*@
                     </tr>
                 }
             }

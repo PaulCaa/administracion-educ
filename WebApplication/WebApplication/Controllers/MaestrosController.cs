@@ -22,8 +22,21 @@ namespace WebApplication.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            this.service = new MaestrosService();
-            return View(service.ListarMaestros());
+            try
+            {
+                if (!string.IsNullOrEmpty(Session["login"].ToString()))
+                {
+                    ViewBag.nombre = Session["nombre"];
+                    this.service = new MaestrosService();
+                    return View(service.ListarMaestros());
+                }
+                return RedirectToAction("Login", "Index");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("[ ERROR ] -> " + e.Message);
+                return RedirectToAction("Login", "Index");
+            }
         }
 
         [HttpPost]
@@ -37,7 +50,7 @@ namespace WebApplication.Controllers
             else if(modificar != null)
                 return View(service.ModificarMaestro(maestro));
             else if(eliminar != null)
-                return View();// FALTA TERMINAR
+                return View(service.BorrarMaestro(maestro));
             else
             {
                 MaestrosResponse respuesta = new MaestrosResponse();

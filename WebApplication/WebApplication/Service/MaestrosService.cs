@@ -96,6 +96,11 @@ namespace WebApplication.Service
             }
         }
 
+        /// <summary>
+        /// Modificar datos de un maestro existente
+        /// </summary>
+        /// <param name="m"></param>
+        /// <returns></returns>
         public MaestrosResponse ModificarMaestro(Maestro m)
         {
             MaestrosResponse response;
@@ -124,17 +129,64 @@ namespace WebApplication.Service
         }
 
         /// <summary>
+        /// Eliminar el registro de un maestro en la base de datos
+        /// </summary>
+        /// <param name="maestro"></param>
+        /// <returns></returns>
+        public MaestrosResponse BorrarMaestro(Maestro maestro)
+        {
+            MaestrosResponse response;
+            try
+            {
+                ValidarDocumento(maestro);
+                List<Maestro> maestros;
+                using (EscuelaDBEntities db = new EscuelaDBEntities())
+                {
+                    Maestro result = db.Maestros.Where(m => m.NumeroDocumento == maestro.NumeroDocumento).First();
+                    if (result == null)
+                        throw new OperacionSinResultadoException("No se encontró maestro con DNI " + maestro.NumeroDocumento);
+                    db.Maestros.Remove(result);
+                    db.SaveChanges();
+                    maestros = db.Maestros.ToList();
+                }
+                response = new MaestrosResponse();
+                response.Result = "OK";
+                response.Data = maestros;
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine("[ ERROR ] -> " + e.Message);
+                throw new OperacionSinResultadoException("No se encontró maestro con DNI ingresado");
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("[ ERROR ] -> " + e.Message);
+                response = new MaestrosResponse("ERROR", true, e.Message);
+            }
+            return response;
+        }
+
+        /// <summary>
         /// Validar datos basicos del modelo
         /// </summary>
         /// <param name="maestro"></param>
         private void ValidarModelo(Maestro maestro)
         {
             if (string.IsNullOrEmpty(maestro.Apellido))
-                throw new EmptyModelParameterException("Falta el apellido");
+                throw new ParametroModeloVacioException("Falta el apellido");
             if (string.IsNullOrEmpty(maestro.Nombre))
-                throw new EmptyModelParameterException("Falta el nombre");
+                throw new ParametroModeloVacioException("Falta el nombre");
+            ValidarDocumento(maestro);
+        }
+
+        /// <summary>
+        /// Se valida que exista el DNI en el modelo
+        /// </summary>
+        /// <param name="maestro"></param>
+        private void ValidarDocumento(Maestro maestro)
+        {
             if (maestro.NumeroDocumento == null)
-                throw new EmptyModelParameterException("Falta el número de documento");
+                throw new ParametroModeloVacioException("Falta el número de documento");
         }
 
         /// <summary>

@@ -117,7 +117,8 @@
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\MaestrosController.cs" />
     <Compile Include="Exceptions\DocumentDuplicatedException.cs" />
-    <Compile Include="Exceptions\EmptyModelParameterException.cs" />
+    <Compile Include="Exceptions\ParametroModeloVacioException.cs" />
+    <Compile Include="Exceptions\OperacionSinResultadoException.cs" />
     <Compile Include="Exceptions\ValidacionLoginException.cs" />
     <Compile Include="Exceptions\WebAppException.cs" />
     <Compile Include="Global.asax.cs">

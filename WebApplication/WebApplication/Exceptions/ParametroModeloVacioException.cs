@@ -5,14 +5,14 @@ using System.Web;
 
 namespace WebApplication.Exceptions
 {
-    public class EmptyModelParameterException : WebAppException
+    public class ParametroModeloVacioException : WebAppException
     {
         private const string DEFAULT_MESSAGE = "Faltan datos en el modelo";
 
-        public EmptyModelParameterException() : base(DEFAULT_MESSAGE)
+        public ParametroModeloVacioException() : base(DEFAULT_MESSAGE)
         { }
 
-        public EmptyModelParameterException(string message) : base(message)
+        public ParametroModeloVacioException(string message) : base(message)
         { }
     }
 }
